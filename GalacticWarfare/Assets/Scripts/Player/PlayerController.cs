@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) ChangeWeapon(WeaponType.Laser);
     }
 
-    private WeaponData GetCurrentWeaponData()
+    public WeaponData GetCurrentWeaponData()
     {
         return currentWeapon switch
         {
