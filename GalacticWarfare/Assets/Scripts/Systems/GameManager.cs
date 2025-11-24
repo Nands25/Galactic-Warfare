@@ -1,79 +1,132 @@
-using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    // -------------------------------
+    // Campos principais do jogo
+    // -------------------------------
 
-    [Header("Player state")]
-    public int lives = 3;
     public int score = 0;
+    public int lives = 3;
 
-    [Header("Events (ScriptableObjects)")]
+    public WeaponType currentWeapon;
+
+    // Eventos para HUD
     public IntEvent scoreEvent_SO;
     public IntEvent livesEvent_SO;
     public WeaponEvent weaponEvent_SO;
 
-    [Header("Save")]
-    public string saveFileName = "save_game.json";
+    // SaveData em memória
+    private SaveData save;
 
-    public WeaponType currentWeapon = WeaponType.Rapid;
 
-    private void Awake()
+    // -------------------------------
+    // Inicialização
+    // -------------------------------
+    void Start()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // Carrega o save ao iniciar o jogo
+        save = SaveSystem.Load();
+
+        // Atualiza score e HUD
+        score = save.highScore;
+        scoreEvent_SO.Raise(score);
+
+        // Atualiza HUD de vidas
+        livesEvent_SO.Raise(lives);
+
+        // Atualiza arma atual (padrão)
+        SetWeapon(WeaponType.Rapid);
     }
 
-    private void Start()
-    {
-        // raise initial values
-        scoreEvent_SO?.Raise(score);
-        livesEvent_SO?.Raise(lives);
-        weaponEvent_SO?.Raise(currentWeapon);
-    }
 
+    // -------------------------------
+    // Score
+    // -------------------------------
     public void AddScore(int amount)
     {
         score += amount;
-        scoreEvent_SO?.Raise(score);
+
+        // Atualiza HUD
+        scoreEvent_SO.Raise(score);
+
+        // Atualiza high score no save
+        if (score > save.highScore)
+            save.highScore = score;
     }
 
+
+    // -------------------------------
+    // Vidas
+    // -------------------------------
     public void ChangeLives(int delta)
     {
         lives += delta;
-        if (lives < 0) lives = 0;
-        livesEvent_SO?.Raise(lives);
-        if (lives == 0) OnGameOver();
+        livesEvent_SO.Raise(lives);
+
+        if (lives <= 0)
+            OnGameOver();
     }
 
+
+    // -------------------------------
+    // Armas
+    // -------------------------------
     public void SetWeapon(WeaponType wt)
     {
         currentWeapon = wt;
-        weaponEvent_SO?.Raise(currentWeapon);
+        weaponEvent_SO.Raise(currentWeapon);
     }
 
+
+    // -------------------------------
+    // Game Over
+    // -------------------------------
     private void OnGameOver()
     {
-        // handle game over: for now, log
-        Debug.Log("Game Over");
+        Debug.Log("GAME OVER");
+
+        SaveGame();
+
+        // Aqui você pode carregar uma tela de GameOver depois
+        // SceneManager.LoadScene("GameOver");
     }
 
-    // Save / Load helpers -> wired to SaveSystem
+
+    // -------------------------------
+    // SAVE
+    // -------------------------------
     public void SaveGame()
     {
-        SaveData sd = new SaveData { highScore = score, lastScore = score };
-        SaveSystem.Save(sd, saveFileName);
+        save.lastScore = score;
+        save.lastWeaponUnlocked = currentWeapon.ToString();
+
+        SaveSystem.Save(save);
+
+        Debug.Log("Jogo salvo.");
     }
 
+
+    // -------------------------------
+    // LOAD
+    // -------------------------------
     public void LoadGame()
     {
-        SaveData sd = SaveSystem.Load(saveFileName);
+        SaveData sd = SaveSystem.Load();
+
         if (sd != null)
         {
             score = sd.highScore;
-            scoreEvent_SO?.Raise(score);
+            scoreEvent_SO.Raise(score);
         }
+    }
+
+
+    // -------------------------------
+    // Quando o jogador morre
+    // -------------------------------
+    public void OnPlayerDeath()
+    {
+        SaveGame();
     }
 }

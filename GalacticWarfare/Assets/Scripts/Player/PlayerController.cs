@@ -17,11 +17,13 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private float fireTimer = 0f;
-    private float currentEnergy = 100f; // for laser
+    private float currentEnergy = 100f; // for laser weapon
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // se esquecer de arrastar no inspetor, cria automático
         if (projectileSpawn == null)
         {
             GameObject ps = new GameObject("ProjectileSpawn");
@@ -38,6 +40,9 @@ public class PlayerController : MonoBehaviour
         HandleWeaponChange();
     }
 
+    // -------------------------------
+    // MOVIMENTO
+    // -------------------------------
     private void HandleMovement()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -46,36 +51,44 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = move * speed;
     }
 
+    // -------------------------------
+    // TIRO
+    // -------------------------------
     private void HandleFire()
     {
         fireTimer -= Time.deltaTime;
+
         WeaponData wd = GetCurrentWeaponData();
         if (wd == null) return;
 
-        if (Input.GetButton("Fire1") && fireTimer <= 0f)
+        // ATIRAR COM ESPAÇO
+        if (Input.GetKey(KeyCode.Space) && fireTimer <= 0f)
         {
-            // check ammo
+            // munição (se usar)
             if (wd.maxAmmo > 0)
             {
                 if (wd.currentAmmo <= 0) return;
                 wd.currentAmmo--;
             }
 
-            // laser uses energy
+            // laser usa energia
             if (currentWeapon == WeaponType.Laser)
             {
                 if (currentEnergy <= 0) return;
-                currentEnergy -= 1f; // or more per shot
+                currentEnergy -= 1f;
             }
 
             SpawnProjectile(wd);
             fireTimer = wd.fireRate;
         }
 
-        // recharge energy slowly
+        // recarga de energia do laser
         currentEnergy = Mathf.Min(currentEnergy + 10f * Time.deltaTime, 100f);
     }
 
+    // -------------------------------
+    // TROCA DE ARMA (1,2,3)
+    // -------------------------------
     private void HandleWeaponChange()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) ChangeWeapon(WeaponType.Rapid);
@@ -94,17 +107,32 @@ public class PlayerController : MonoBehaviour
         };
     }
 
+    // -------------------------------
+    // SPAWN DO PROJÉTIL
+    // -------------------------------
     private void SpawnProjectile(WeaponData wd)
     {
-        if (wd.projectilePrefab == null) return;
-        GameObject proj = ProjectilePool.Instance.Spawn(wd.projectilePrefab, projectileSpawn.position, projectileSpawn.rotation);
+        if (wd.projectilePrefab == null)
+        {
+            Debug.LogError("Arma sem prefab de projétil!");
+            return;
+        }
+
+        GameObject proj = ProjectilePool.Instance.Spawn(
+            wd.projectilePrefab,
+            projectileSpawn.position,
+            projectileSpawn.rotation
+        );
+
         Projectile p = proj.GetComponent<Projectile>();
-        if (p != null) p.Initialize(wd.damage, wd.projectileSpeed, wd.lifeTime, gameObject.tag);
+        if (p != null)
+        {
+            p.Initialize(wd.damage, wd.projectileSpeed, wd.lifeTime, gameObject.tag);
+        }
     }
 
     public void ChangeWeapon(WeaponType wt)
     {
         currentWeapon = wt;
-        GameManager.Instance?.SetWeapon(wt);
     }
 }

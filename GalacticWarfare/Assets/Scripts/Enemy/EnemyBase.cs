@@ -24,7 +24,7 @@ public class EnemyBase : MonoBehaviour
     {
         anim?.SetTrigger("Die");
         // award score
-        if (data != null) GameManager.Instance?.AddScore(data.scoreValue);
+        //if (data != null) GameManager.Instance?.AddScore(data.scoreValue);
         // play explosion particle (optional)
         // disable collider to avoid further hits
         Collider2D c = GetComponent<Collider2D>();

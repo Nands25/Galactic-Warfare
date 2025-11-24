@@ -16,7 +16,7 @@ MonoBehaviour:
   fireRate: 0.15
   damage: 1
   maxAmmo: 100
-  currentAmmo: -1
+  currentAmmo: 0
   projectileSpeed: 20
   lifeTime: 1
-  projectilePrefab: {fileID: 1228255979761771915, guid: d67be3b7470efc342b1d4f8754256aa4, type: 3}
+  projectilePrefab: {fileID: 2605959187127486118, guid: 6d184525ee73f6f49962b4fe7daf468f, type: 3}

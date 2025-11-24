@@ -19,4 +19,4 @@ MonoBehaviour:
   currentAmmo: -1
   projectileSpeed: 12
   lifeTime: 3
-  projectilePrefab: {fileID: 9220172339600033902, guid: 8134c7518b9d8914c81f0d72aa581b72, type: 3}
+  projectilePrefab: {fileID: 2605959187127486118, guid: e2420216bfd1ade48a71a1b6d913cd49, type: 3}

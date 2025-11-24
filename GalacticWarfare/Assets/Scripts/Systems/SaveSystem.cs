@@ -1,35 +1,39 @@
-using System.IO;
 using UnityEngine;
-
-[System.Serializable]
-public class SaveData
-{
-    public int highScore;
-    public int lastScore;
-    public string[] unlockedWeapons;
-}
+using System.IO;
 
 public static class SaveSystem
 {
-    public static void Save(SaveData data, string fileName = "save_game.json")
+    private static string savePath = Application.persistentDataPath + "/save_game.json";
+
+    public static void Save(SaveData data)
     {
         string json = JsonUtility.ToJson(data, true);
-        string path = Path.Combine(Application.persistentDataPath, fileName);
-        File.WriteAllText(path, json);
-        Debug.Log($"Saved game to: {path}");
+        File.WriteAllText(savePath, json);
+        Debug.Log("Jogo salvo em: " + savePath);
     }
 
-    public static SaveData Load(string fileName = "save_game.json")
+    public static SaveData Load()
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
-        if (!File.Exists(path))
+        if (File.Exists(savePath))
         {
-            Debug.Log("Save file not found: " + path);
-            return null;
+            string json = File.ReadAllText(savePath);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            Debug.Log("Save carregado!");
+            return data;
         }
-        string json = File.ReadAllText(path);
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
-        Debug.Log($"Loaded save from: {path}");
-        return data;
+        else
+        {
+            Debug.Log("Nenhum save encontrado. Criando novo...");
+            return new SaveData();
+        }
+    }
+
+    public static void DeleteSave()
+    {
+        if (File.Exists(savePath))
+        {
+            File.Delete(savePath);
+            Debug.Log("SAVE DELETADO.");
+        }
     }
 }
