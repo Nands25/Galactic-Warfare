@@ -213,6 +213,7 @@ MonoBehaviour:
   currentHp: 0
   chaseDistance: 6
   attackDistance: 3
+  life: 3
 --- !u!114 &7372571350490669566
 MonoBehaviour:
   m_ObjectHideFlags: 0

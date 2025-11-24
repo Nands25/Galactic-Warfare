@@ -30,4 +30,22 @@ public class EnemyAI : EnemyBase
             // attack behaviour (could shoot)
         }
     }
+    
+    public int life = 3;
+
+    public void TakeDamage(int dmg)
+    {
+        life -= dmg;
+
+        if (life <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        GameManager.Instance.AddScore(10); // 10 pontos por inimigo
+        Destroy(gameObject);
+    }
 }

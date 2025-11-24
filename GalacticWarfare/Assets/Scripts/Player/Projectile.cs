@@ -39,19 +39,28 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // ignora colisão com quem atirou
         if (other.CompareTag(ownerTag)) return;
 
-        // if hits enemy
+        // 1) Se for inimigo usando EnemyBase
         EnemyBase eb = other.GetComponent<EnemyBase>();
         if (eb != null)
         {
             eb.TakeDamage(damage);
-            // spawn impact particle if assigned in Projectile (optional)
             ProjectilePool.Instance.Despawn(gameObject);
             return;
         }
 
-        // if hits something else (e.g., wall) just despawn
+        // 2) Se for inimigo usando EnemyAI
+        EnemyAI ea = other.GetComponent<EnemyAI>();
+        if (ea != null)
+        {
+            ea.TakeDamage(damage);
+            ProjectilePool.Instance.Despawn(gameObject);
+            return;
+        }
+
+        // 3) Qualquer outra colisão (parede etc)
         ProjectilePool.Instance.Despawn(gameObject);
     }
 }
