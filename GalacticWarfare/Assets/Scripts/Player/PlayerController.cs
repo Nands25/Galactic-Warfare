@@ -134,5 +134,9 @@ public class PlayerController : MonoBehaviour
     public void ChangeWeapon(WeaponType wt)
     {
         currentWeapon = wt;
+        Debug.Log("Player trocou para -> " + wt);
+
+        // 🔥 Atualiza HUD e GameManager
+        GameManager.Instance.SetWeapon(wt);
     }
 }

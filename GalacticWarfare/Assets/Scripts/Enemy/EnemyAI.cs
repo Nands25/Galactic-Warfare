@@ -54,12 +54,12 @@ public class EnemyAI : EnemyBase
         Destroy(gameObject);
     }
     
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if (other.CompareTag("Player"))
+        if (col.collider.CompareTag("Player"))
         {
-            other.GetComponent<PlayerHealth>().TakeDamage(1);
-            Destroy(gameObject); // inimigo morre ao encostar
+            col.collider.GetComponent<PlayerHealth>().TakeDamage(1); // tira vida do player
+            // NÃO DESTRÓI O INIMIGO!
         }
     }
 

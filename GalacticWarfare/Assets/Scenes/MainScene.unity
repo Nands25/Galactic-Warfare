@@ -500,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6772449050973182690, guid: aac3dffbf553f33439003ff29234cc98, type: 3}
   enemiesPerWave: 4
-  timeBetweenEnemies: 0.4
+  timeBetweenEnemies: 3
   timeBetweenWaves: 4
 --- !u!1 &519420028
 GameObject:
@@ -1012,12 +1012,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02489e6a00baef8448367786c49f08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreEvent_SO: {fileID: 11400000, guid: f3b0d25cdce577f479e23e6aa026face, type: 2}
-  livesEvent_SO: {fileID: 11400000, guid: 3ad75ded02b7f3948a3f24d6e46ffd8b, type: 2}
-  weaponEvent_SO: {fileID: 11400000, guid: 7a8864e3b0f47564e99624d444af4aa0, type: 2}
   scoreText: {fileID: 868342266}
   livesText: {fileID: 237219911}
   weaponText: {fileID: 380346422}
+  scoreEvent_SO: {fileID: 11400000, guid: f3b0d25cdce577f479e23e6aa026face, type: 2}
+  livesEvent_SO: {fileID: 11400000, guid: 3ad75ded02b7f3948a3f24d6e46ffd8b, type: 2}
+  weaponEvent_SO: {fileID: 11400000, guid: 7a8864e3b0f47564e99624d444af4aa0, type: 2}
 --- !u!1 &954896770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,8 +1079,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  lives: 3
-  currentWeapon: 0
+  lives: 5
+  currentWeapon: 2
   scoreEvent_SO: {fileID: 11400000, guid: f3b0d25cdce577f479e23e6aa026face, type: 2}
   livesEvent_SO: {fileID: 11400000, guid: 3ad75ded02b7f3948a3f24d6e46ffd8b, type: 2}
   weaponEvent_SO: {fileID: 11400000, guid: 7a8864e3b0f47564e99624d444af4aa0, type: 2}
@@ -1178,6 +1178,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1952274207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8879428450273905997, guid: a2d2f00ab54cbef47beb6a07809cf39e, type: 3}
+  m_PrefabInstance: {fileID: 1756864739320981405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1952274212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952274207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83a65651fc91384bacbf9cbbf5e0678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 5
+  currentLife: 0
+  hudLifeEvent: {fileID: 11400000, guid: 3ad75ded02b7f3948a3f24d6e46ffd8b, type: 2}
 --- !u!1001 &1756864739320981405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1282,7 +1302,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5692406720969045389, guid: a2d2f00ab54cbef47beb6a07809cf39e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 954896771}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8879428450273905997, guid: a2d2f00ab54cbef47beb6a07809cf39e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1952274212}
   m_SourcePrefab: {fileID: 100100000, guid: a2d2f00ab54cbef47beb6a07809cf39e, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

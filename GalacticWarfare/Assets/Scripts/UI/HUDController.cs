@@ -1,42 +1,53 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class HUDController : MonoBehaviour
 {
-    public IntEvent scoreEvent_SO;
-    public IntEvent livesEvent_SO;
-    public WeaponEvent weaponEvent_SO;
-
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI weaponText;
 
+    public IntEvent scoreEvent_SO;
+    public IntEvent livesEvent_SO;
+    public WeaponEvent weaponEvent_SO;
+
     private void OnEnable()
     {
-        if (scoreEvent_SO != null) scoreEvent_SO.OnRaised += OnScoreChanged;
-        if (livesEvent_SO != null) livesEvent_SO.OnRaised += OnLivesChanged;
-        if (weaponEvent_SO != null) weaponEvent_SO.OnRaised += OnWeaponChanged;
+        Debug.Log("<color=yellow>HUD ATIVOU e registrou eventos!</color>");
+
+        scoreEvent_SO.OnRaised += UpdateScoreHUD;
+        livesEvent_SO.OnRaised += UpdateLivesHUD;
+        weaponEvent_SO.OnRaised += UpdateWeaponHUD;
+    }
+
+    private void Start()
+    {
+        Debug.Log("<color=green>HUD START CHAMADO!</color>");
+        weaponText.text = "WEAPON: (aguardando)";
     }
 
     private void OnDisable()
     {
-        if (scoreEvent_SO != null) scoreEvent_SO.OnRaised -= OnScoreChanged;
-        if (livesEvent_SO != null) livesEvent_SO.OnRaised -= OnLivesChanged;
-        if (weaponEvent_SO != null) weaponEvent_SO.OnRaised -= OnWeaponChanged;
+        scoreEvent_SO.OnRaised -= UpdateScoreHUD;
+        livesEvent_SO.OnRaised -= UpdateLivesHUD;
+        weaponEvent_SO.OnRaised -= UpdateWeaponHUD;
     }
 
-    private void OnScoreChanged(int s)
+    void UpdateScoreHUD(int v)
     {
-        if (scoreText != null) scoreText.text = $"SCORE: {s}";
+        Debug.Log("<color=cyan>[HUD] SCORE recebido:</color> " + v);
+        scoreText.text = "SCORE: " + v;
     }
 
-    private void OnLivesChanged(int l)
+    void UpdateLivesHUD(int v)
     {
-        if (livesText != null) livesText.text = $"LIVES: {l}";
+        Debug.Log("<color=red>[HUD] LIVES recebido:</color> " + v);
+        livesText.text = "LIVES: " + v;
     }
 
-    private void OnWeaponChanged(WeaponType wt)
+    void UpdateWeaponHUD(WeaponType w)
     {
-        if (weaponText != null) weaponText.text = $"WEAPON: {wt}";
+        Debug.Log("<color=lime>[HUD] WEAPON recebida:</color> " + w);
+        weaponText.text = "WEAPON: " + w.ToString();
     }
 }

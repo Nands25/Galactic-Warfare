@@ -15,6 +15,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
+        if (currentLife <= 0) return; // <-- impede vida negativa
+
         currentLife -= dmg;
         hudLifeEvent.Raise(currentLife);
 

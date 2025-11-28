@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 
     // Dados de jogo -------------------------------------
     public int score = 0;
-    public int lives = 3;
-    public WeaponType currentWeapon = WeaponType.Rapid;
+    public int lives = 5;
+    public WeaponType currentWeapon;
 
     // Eventos (HUD) -------------------------------------
     public IntEvent scoreEvent_SO;
@@ -35,18 +35,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Carrega o arquivo JSON
         save = SaveSystem.Load();
 
-        // Inicializa score do jogo (ZERAR, não usar highScore)
         score = 0;
         scoreEvent_SO.Raise(score);
 
-        // Vidas
         livesEvent_SO.Raise(lives);
 
-        // Arma inicial
-        SetWeapon(WeaponType.Rapid);
+        // ❌ ANTES — prende a arma no valor do Inspector
+        // SetWeapon(WeaponType.Rapid); 
+
+        // ✔ DEPOIS — usa a arma que já está definida no Inspector
+        weaponEvent_SO.Raise(currentWeapon);
     }
 
 
@@ -85,8 +85,18 @@ public class GameManager : MonoBehaviour
     public void SetWeapon(WeaponType wt)
     {
         currentWeapon = wt;
-        weaponEvent_SO.Raise(currentWeapon);
+        Debug.Log("[GameManager] SetWeapon chamado: " + wt);
+        if (weaponEvent_SO != null)
+        {
+            Debug.Log("[GameManager] weaponEvent_SO não é nulo - chamando Raise");
+            weaponEvent_SO.Raise(currentWeapon);
+        }
+        else
+        {
+            Debug.LogError("[GameManager] weaponEvent_SO É NULO no GameManager!");
+        }
     }
+
 
 
     // ----------------------------------------------------
