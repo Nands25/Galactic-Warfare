@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyAI : EnemyBase
 {
     [Header("Configurações Gerais")]
+    public float ID = 0;
     public float chaseDistance = 6f;
     public float attackDistance = 3f;
     public int life = 3;
@@ -26,11 +27,19 @@ public class EnemyAI : EnemyBase
         anim.SetFloat("DistanceToPlayer", dist);
 
         // ⬇ Correção: Movimentação original mantida, mas mais suave
-        if (dist < chaseDistance && dist > attackDistance)
+        if (ID == 1)
+        {
+            if (dist < chaseDistance && dist > attackDistance)
+            {
+                Vector3 dir = (player.position - transform.position).normalized;
+                transform.position += dir * data.speed * Time.deltaTime;
+            }
+        }
+        else {if (dist < chaseDistance)
         {
             Vector3 dir = (player.position - transform.position).normalized;
             transform.position += dir * data.speed * Time.deltaTime;
-        }
+        }}
 
         if (dist <= attackDistance)
         {
@@ -48,11 +57,17 @@ public class EnemyAI : EnemyBase
 
     protected override void Die()
     {
+        // Avisa o spawner que um inimigo morreu
+        EnemySpawner spawner = FindObjectOfType<EnemySpawner>();
+        if (spawner != null)
+            spawner.OnEnemyKilled();
+
         if (GameManager.Instance != null)
             GameManager.Instance.AddScore(10);
 
         Destroy(gameObject);
     }
+
     
     private void OnCollisionEnter2D(Collision2D col)
     {

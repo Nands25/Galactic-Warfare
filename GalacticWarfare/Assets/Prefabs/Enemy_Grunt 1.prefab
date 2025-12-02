@@ -43,12 +43,11 @@ GameObject:
   - component: {fileID: 1945324434659098867}
   - component: {fileID: 6962856985936753417}
   - component: {fileID: 6338225834196897029}
-  - component: {fileID: 7027377192078152415}
   - component: {fileID: 8144534515988763887}
   - component: {fileID: 7372571350490669566}
   - component: {fileID: 2553460449045975633}
   m_Layer: 0
-  m_Name: Enemy_Grunt
+  m_Name: Enemy_Grunt 1
   m_TagString: Enemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +114,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 296169839, guid: d967cccf1642aa1419174612b92c3feb, type: 3}
-  m_Color: {r: 1, g: 0.56491137, b: 0.48584908, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -198,22 +197,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5253541, y: 0.33070815}
   m_EdgeRadius: 0
---- !u!114 &7027377192078152415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6772449050973182690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47501bf7b5beccd4184ded7ea8db096a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3744153179689390859, guid: 531338a062bd57a4bb6348bc1a968b87, type: 3}
-  fireRate: 1
-  shootDistance: 5
-  bulletSpeed: 7
 --- !u!114 &8144534515988763887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +211,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: b6b4da0ac1ef89c43885e28bc0e9a809, type: 2}
   currentHp: 0
-  ID: 1
   chaseDistance: 20
   attackDistance: 3
   life: 3
