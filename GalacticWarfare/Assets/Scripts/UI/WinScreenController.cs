@@ -8,9 +8,9 @@ public class WinScreenController : MonoBehaviour
 
     private void Start()
     {
-        // Mostra o score final do jogador
-        int finalScore = GameManager.Instance.score;
-        scoreText.text = "Final Score: " + finalScore;
+        // Carrega o último score salvo
+        SaveData data = SaveSystem.Load();
+        scoreText.text = "Final Score: " + data.lastScore;
     }
 
     public void Retry()

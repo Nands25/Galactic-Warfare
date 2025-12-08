@@ -312,7 +312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Final Score: 0'
+  m_text: 'Final Score: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f456e2008a5993b41bed649ac36cfded, type: 2}
   m_sharedMaterial: {fileID: 7253909544979494671, guid: f456e2008a5993b41bed649ac36cfded, type: 2}
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -150.23174, y: 0, z: -156.98364, w: 0}
+  m_margin: {x: -305.15338, y: 0, z: -302.7921, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -509,7 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54ab443c2bbaba46a33c4189313085f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 541125673}
 --- !u!1 &1082343347
 GameObject:
   m_ObjectHideFlags: 0
