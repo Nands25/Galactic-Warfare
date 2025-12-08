@@ -204,8 +204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'LIVES:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f456e2008a5993b41bed649ac36cfded, type: 2}
+  m_sharedMaterial: {fileID: 7253909544979494671, guid: f456e2008a5993b41bed649ac36cfded, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -503,8 +503,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'WEAPON:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f456e2008a5993b41bed649ac36cfded, type: 2}
+  m_sharedMaterial: {fileID: 7253909544979494671, guid: f456e2008a5993b41bed649ac36cfded, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1019,8 +1019,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'SCORE:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f456e2008a5993b41bed649ac36cfded, type: 2}
+  m_sharedMaterial: {fileID: 7253909544979494671, guid: f456e2008a5993b41bed649ac36cfded, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1283,6 +1283,7 @@ MonoBehaviour:
   scoreEvent_SO: {fileID: 11400000, guid: f3b0d25cdce577f479e23e6aa026face, type: 2}
   livesEvent_SO: {fileID: 11400000, guid: 3ad75ded02b7f3948a3f24d6e46ffd8b, type: 2}
   weaponEvent_SO: {fileID: 11400000, guid: 7a8864e3b0f47564e99624d444af4aa0, type: 2}
+  scoreToWin: 200
 --- !u!4 &1187397351
 Transform:
   m_ObjectHideFlags: 0

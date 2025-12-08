@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,10 +19,13 @@ public class GameManager : MonoBehaviour
     // Save em memória -----------------------------------
     private SaveData save;
 
-    
+    // Condição de vitória -------------------------------
+    public int scoreToWin = 200;
+    private bool gameWon = false;
+
+
     private void Awake()
     {
-        // Implementação do Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -42,10 +46,6 @@ public class GameManager : MonoBehaviour
 
         livesEvent_SO.Raise(lives);
 
-        // ❌ ANTES — prende a arma no valor do Inspector
-        // SetWeapon(WeaponType.Rapid); 
-
-        // ✔ DEPOIS — usa a arma que já está definida no Inspector
         weaponEvent_SO.Raise(currentWeapon);
     }
 
@@ -55,14 +55,31 @@ public class GameManager : MonoBehaviour
     // ----------------------------------------------------
     public void AddScore(int amount)
     {
-        score += amount;
+        if (gameWon) return;
 
-        // HUD
+        score += amount;
         scoreEvent_SO.Raise(score);
 
-        // Atualiza HighScore
         if (score > save.highScore)
             save.highScore = score;
+
+        if (score >= scoreToWin)
+        {
+            OnVictory();
+        }
+    }
+
+
+    // ----------------------------------------------------
+    // VITÓRIA
+    // ----------------------------------------------------
+    private void OnVictory()
+    {
+        Debug.Log("🎉 VITÓRIA! Pontuação atingida.");
+
+        gameWon = true;
+        SaveGame();
+        SceneManager.LoadScene("WinScene");
     }
 
 
@@ -85,28 +102,19 @@ public class GameManager : MonoBehaviour
     public void SetWeapon(WeaponType wt)
     {
         currentWeapon = wt;
-        Debug.Log("[GameManager] SetWeapon chamado: " + wt);
         if (weaponEvent_SO != null)
-        {
-            Debug.Log("[GameManager] weaponEvent_SO não é nulo - chamando Raise");
             weaponEvent_SO.Raise(currentWeapon);
-        }
-        else
-        {
-            Debug.LogError("[GameManager] weaponEvent_SO É NULO no GameManager!");
-        }
     }
 
 
-
     // ----------------------------------------------------
-    // GAME OVER
+    // GAME OVER (PÚBLICO)
     // ----------------------------------------------------
-    private void OnGameOver()
+    public void OnGameOver()
     {
         Debug.Log("GAME OVER!");
         SaveGame();
-        // futuramente: carregar tela GameOver
+        SceneManager.LoadScene("GameOverScene");
     }
 
 
@@ -147,5 +155,6 @@ public class GameManager : MonoBehaviour
     public void OnPlayerDeath()
     {
         SaveGame();
+        OnGameOver();  // AGORA FUNCIONA!
     }
 }
